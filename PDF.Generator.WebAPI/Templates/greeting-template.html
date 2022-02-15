@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Search Found Bar -->
+            <div class="row" *ngIf="submitted && searchMessage != null">
+                <div class="col-12">
+                    <div class="card-header text-center">
+                        <div class="text-bold search-result">Greetings text in multiple languages
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-table">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-start p-2">
+                                        <span class="text-start">Greetings : {{greetings?.size}} records</span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-end p-2">
+                                        <span class="text-right">Render time :
+                                            {{date.now }} </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="mat-elevation-z1">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                No
+                                            </th>
+                                            <th scope="col">
+                                                Language
+                                            </th>
+                                            <th scope="col">
+                                                Formal
+                                            </th>
+                                            <th scope="col">
+                                                Informal
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{for item in greetings}}
+                                        <tr>
+                                            <td class="w-10" scope="row">{{for.index + 1}}</td>
+                                            <td>{{item.language}}</td>
+                                            <td>{{item.greeting_text_formal}}</td>
+                                            <td>{{if item.greeting_text_informal}}
+                                                {{item.greeting_text_informal}}
+                                                {{else}}
+                                                -
+                                                {{end}}
+                                            </td>
+                                        </tr>
+                                        {{end}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -5,7 +5,19 @@
     <projectFile profileName="IIS Express">PDF.Generator.WebAPI/PDF.Generator.WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b955f2e9-75bd-4fab-830a-1a569bf852c9" name="Changes" comment="" />
+    <list default="true" id="b955f2e9-75bd-4fab-830a-1a569bf852c9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Controllers/PdfGeneratorController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Models/PdfGenerators/GreetingModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Models/Requests/PdfGenerators/GeneratePdfReq.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Models/Requests/PdfGenerators/MergePDFReq.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.PDF.Generator.WebAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PDF.Generator.WebAPI/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/Controllers/WeatherForecastController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/Interfaces/IPdfGeneratorService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/Interfaces/IPdfGeneratorService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/WeatherForecast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/appsettings.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +25,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d4ffe645dc216ff41de7fe7fe43d12b35ab6f757127a3d4ac7921228dfce9ee/PoolingAsyncValueTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -72,6 +87,8 @@
       <updated>1644857143167</updated>
       <workItem from="1644857149321" duration="45000" />
       <workItem from="1644857203386" duration="643000" />
+      <workItem from="1644899334103" duration="708000" />
+      <workItem from="1644937058562" duration="4409000" />
     </task>
     <servers />
   </component>
@@ -94,5 +111,94 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/PDF.Generator.WebAPI/Controllers/PdfGeneratorController.cs</url>
+          <line>85</line>
+          <properties documentPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Controllers/PdfGeneratorController.cs" initialLine="85" containingFunctionPresentation="method 'TestGeneratePDF'">
+            <startOffsets>
+              <option value="3606" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3678" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/PDF.Generator.WebAPI/Controllers/PdfGeneratorController.cs</url>
+          <line>90</line>
+          <properties documentPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Controllers/PdfGeneratorController.cs" initialLine="90" containingFunctionPresentation="method 'TestGeneratePDF'">
+            <startOffsets>
+              <option value="3911" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3978" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs</url>
+          <line>23</line>
+          <properties documentPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs" initialLine="23" containingFunctionPresentation="method 'GeneratePdf'">
+            <startOffsets>
+              <option value="659" />
+            </startOffsets>
+            <endOffsets>
+              <option value="718" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs</url>
+          <line>28</line>
+          <properties documentPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs" initialLine="28" containingFunctionPresentation="method 'GeneratePdf'">
+            <startOffsets>
+              <option value="890" />
+            </startOffsets>
+            <endOffsets>
+              <option value="932" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs</url>
+          <line>29</line>
+          <properties documentPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs" initialLine="29" containingFunctionPresentation="method 'GeneratePdf'">
+            <startOffsets>
+              <option value="945" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1012" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs</url>
+          <line>30</line>
+          <properties documentPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs" initialLine="30" containingFunctionPresentation="method 'GeneratePdf'">
+            <startOffsets>
+              <option value="1025" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1116" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#&lt;&gt;f__AnonymousType2`1" memberName="Greetins" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

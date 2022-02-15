@@ -2,10 +2,10 @@ namespace PDF.Generator.WebAPI.Services.Interfaces;
 
 public interface IPdfGeneratorService
 {
-    Task<byte[]> GenerateCustomerDetailReportAsync<T>(List<T> dataList, string templateFileName, bool saveAsFile,
-        string outputFileName = null, bool hasPageNumber = true);
-
+    Task<byte[]> GeneratePdf(string templateFullPath, object templateData, string headerText = null,
+        bool hasPageNumber = true);
+    
     byte[] ConcatenatePdfs(IEnumerable<byte[]> documents);
 
-    byte[] StampMergedPdfNumberAfter(byte[] document);
+    byte[] StampMergedPdfNumber(byte[] document);
 }

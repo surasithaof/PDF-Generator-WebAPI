@@ -10,87 +10,50 @@ namespace PDF.Generator.WebAPI.Services;
 
 public class PdfGeneratorService : IPdfGeneratorService
 {
-    private readonly IConfiguration _configuration;
-    
-    public PdfGeneratorService(IConfiguration configuration)
+    public PdfGeneratorService()
     {
-        _configuration = configuration;
     }
-    
-    public async Task<byte[]> GenerateCustomerDetailReportAsync<T>(List<T> dataList, string templateFileName, bool saveAsFile, string outputFileName = null, bool hasPageNumber = true)
+
+    public async Task<byte[]> GeneratePdf(string templateFullPath, object templateData, string headerText = null,
+        bool hasPageNumber = true)
     {
         try
         {
-            // Generate Report as HTML using Scriban template
-            string templatePath = _configuration.GetValue<string>("ReportTemplatePath");
-            string templateFullPath = Path.Combine(templatePath, templateFileName);
-
-            var templateContent = File.ReadAllText(templateFullPath);
+            var templateContent = await File.ReadAllTextAsync(templateFullPath);
             var template = Template.Parse(templateContent);
-
-            var templateData = new { DataList = dataList };
-            
             var pageContent = await template.RenderAsync(templateData);
 
             var dataUrl = "data:text/html;base64," + Convert.ToBase64String(Encoding.UTF8.GetBytes(pageContent));
 
             //Generate PDF using Puppeteer
             var browserFetcher = new BrowserFetcher();
-            await browserFetcher.DownloadAsync();
+            await browserFetcher.DownloadAsync(BrowserFetcher.DefaultRevision);
             await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions {Headless = true});
             await using var page = await browser.NewPageAsync();
             await page.GoToAsync(dataUrl);
 
-            string headerStyle = "" +
-                                 "\"" +
-                                 "font-family:'Sarabun'; " +
-                                 "font-size:11px; " +
-                                 "width: 100%;" +
-                                 "padding-right: 55px;" +
-                                 "padding-left: 55px;" +
-                                 "margin-right: auto;" +
-                                 "margin-left: auto;" +
-                                 "margin-top: 10px;" +
-                                 "\"";
+            const string headerStyle = "" + "\"" + "font-family:'Sarabun'; " + "font-size:11px; " + "width: 100%;" +
+                                       "padding-right: 55px;" + "padding-left: 55px;" + "margin-right: auto;" +
+                                       "margin-left: auto;" + "margin-top: 10px;" + "\"";
 
-            string footerStyle = "\"" +
-                                 "font-family:'Sarabun';" +
-                                 "text-align: right;" +
-                                 "font-size: 11px;" +
-                                 "width: 100%;" +
-                                 "padding-right: 55px;" +
-                                 "padding-left: 55px;" +
-                                 "margin-right: auto;" +
-                                 "margin-left: auto;" +
-                                 "margin-bottom: 10px;" +
-                                 "\"";
+            const string footerStyle = "\"" + "font-family:'Sarabun';" + "text-align: right;" + "font-size: 11px;" +
+                                       "width: 100%;" + "padding-right: 55px;" + "padding-left: 55px;" +
+                                       "margin-right: auto;" + "margin-left: auto;" + "margin-bottom: 10px;" + "\"";
 
             var output = await page.PdfDataAsync(new PdfOptions
             {
                 Format = PaperFormat.A4,
                 DisplayHeaderFooter = true,
-                MarginOptions = new MarginOptions
-                {
-                    Top = "80px",
-                    Right = "20px",
-                    Bottom = "80px",
-                    Left = "20px"
-                },
+                MarginOptions = new MarginOptions {Top = "80px", Right = "20px", Bottom = "80px", Left = "20px"},
                 PreferCSSPageSize = true,
-                HeaderTemplate = "<div id=\"header-template\" style=" + headerStyle + ">" + "Example Report" +"</div>",
-                FooterTemplate = "<div id=\"footer-template\" style=" + footerStyle + ">" + (hasPageNumber ? "<span class=\"pageNumber\"></span> of <span class=\"totalPages\"></span></div>" : "")
+                HeaderTemplate = "<div id=\"header-template\" style=" + headerStyle + ">" + headerText + "</div>",
+                FooterTemplate =
+                    "<div id=\"footer-template\" style=" + footerStyle + ">" + (hasPageNumber
+                        ? "<span class=\"pageNumber\"></span> of <span class=\"totalPages\"></span></div>"
+                        : ""),
+                PrintBackground = true
             });
 
-            // Save the pdf to the disk
-            if (saveAsFile)
-            {
-                string outputPath = _configuration.GetValue<string>("ReportOutputPath");
-                if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
-                outputFileName = !String.IsNullOrEmpty(outputFileName) ? outputFileName : "output.pdf";
-                string outputFullPath = Path.Combine(outputPath, outputFileName);
-
-                await File.WriteAllBytesAsync(outputFullPath, output);
-            }
             return output;
         }
         catch (Exception ex)
@@ -117,6 +80,7 @@ public class PdfGeneratorService : IPdfGeneratorService
                     {
                         writer.AddPage(writer.GetImportedPage(reader, i));
                     }
+
                     writer.FreeReader(reader);
                     reader.Close();
                 }
@@ -135,8 +99,8 @@ public class PdfGeneratorService : IPdfGeneratorService
             throw;
         }
     }
-    
-    public byte[] StampMergedPdfNumberAfter(byte[] document)
+
+    public byte[] StampMergedPdfNumber(byte[] document)
     {
         try
         {
@@ -146,9 +110,9 @@ public class PdfGeneratorService : IPdfGeneratorService
                 PdfReader reader = new PdfReader(document);
                 using (PdfStamper stamper = new PdfStamper(reader, stream))
                 {
-                    float xLocation = 50;
-                    float yLocation = 20;
-                    
+                    const float xLocation = 50;
+                    const float yLocation = 20;
+
                     for (int page = 1; page <= reader.NumberOfPages; page++)
                     {
                         // Font blackFont = FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK);
@@ -156,13 +120,17 @@ public class PdfGeneratorService : IPdfGeneratorService
                         Font font = new Font(bf, 11, Font.NORMAL, BaseColor.BLACK);
 
                         PdfContentByte pdfContent = stamper.GetOverContent(page);
-                        Rectangle mediabox = reader.GetPageSize(page);
+                        Rectangle mediaBox = reader.GetPageSize(page);
 
-                        ColumnText.ShowTextAligned(pdfContent, Element.ALIGN_LEFT, new Phrase($"{page} of {reader.NumberOfPages}", font), mediabox.Width - xLocation, yLocation, 0);
+                        ColumnText.ShowTextAligned(pdfContent, Element.ALIGN_LEFT,
+                            new Phrase($"{page} of {reader.NumberOfPages}", font), mediaBox.Width - xLocation,
+                            yLocation, 0);
                     }
                 }
+
                 output = stream.ToArray();
             }
+
             return output;
         }
         catch (Exception ex)
@@ -171,5 +139,4 @@ public class PdfGeneratorService : IPdfGeneratorService
             throw;
         }
     }
-
 }
