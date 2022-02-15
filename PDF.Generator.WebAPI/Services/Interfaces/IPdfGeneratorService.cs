@@ -6,4 +6,6 @@ public interface IPdfGeneratorService
         string outputFileName = null, bool hasPageNumber = true);
 
     byte[] ConcatenatePdfs(IEnumerable<byte[]> documents);
+
+    byte[] StampMergedPdfNumberAfter(byte[] document);
 }

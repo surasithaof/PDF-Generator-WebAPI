@@ -93,10 +93,10 @@ public class PdfGeneratorService : IPdfGeneratorService
             }
             return output;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message, ex);
-            throw ex;
+            throw;
         }
     }
 
@@ -132,7 +132,44 @@ public class PdfGeneratorService : IPdfGeneratorService
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message, ex);
-            throw ex;
+            throw;
         }
     }
+    
+    public byte[] StampMergedPdfNumberAfter(byte[] document)
+    {
+        try
+        {
+            byte[] output;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                PdfReader reader = new PdfReader(document);
+                using (PdfStamper stamper = new PdfStamper(reader, stream))
+                {
+                    float xLocation = 50;
+                    float yLocation = 20;
+                    
+                    for (int page = 1; page <= reader.NumberOfPages; page++)
+                    {
+                        // Font blackFont = FontFactory.GetFont("Arial", 12, Font.NORMAL, BaseColor.BLACK);
+                        var bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        Font font = new Font(bf, 11, Font.NORMAL, BaseColor.BLACK);
+
+                        PdfContentByte pdfContent = stamper.GetOverContent(page);
+                        Rectangle mediabox = reader.GetPageSize(page);
+
+                        ColumnText.ShowTextAligned(pdfContent, Element.ALIGN_LEFT, new Phrase($"{page} of {reader.NumberOfPages}", font), mediabox.Width - xLocation, yLocation, 0);
+                    }
+                }
+                output = stream.ToArray();
+            }
+            return output;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message, ex);
+            throw;
+        }
+    }
+
 }

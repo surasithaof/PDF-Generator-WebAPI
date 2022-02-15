@@ -5,14 +5,7 @@
     <projectFile profileName="IIS Express">PDF.Generator.WebAPI/PDF.Generator.WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b955f2e9-75bd-4fab-830a-1a569bf852c9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/Interfaces/IPdfGeneratorService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Services/PdfGeneratorService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PDF.Generator.WebAPI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PDF.Generator.WebAPI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/PDF.Generator.WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/PDF.Generator.WebAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PDF.Generator.WebAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/PDF.Generator.WebAPI/appsettings.json" afterDir="false" />
-    </list>
+    <list default="true" id="b955f2e9-75bd-4fab-830a-1a569bf852c9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1644857143167</updated>
       <workItem from="1644857149321" duration="45000" />
-      <workItem from="1644857203386" duration="568000" />
+      <workItem from="1644857203386" duration="643000" />
     </task>
     <servers />
   </component>
