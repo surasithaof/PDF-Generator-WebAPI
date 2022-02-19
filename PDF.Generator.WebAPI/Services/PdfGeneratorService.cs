@@ -32,13 +32,28 @@ public class PdfGeneratorService : IPdfGeneratorService
             await using var page = await browser.NewPageAsync();
             await page.GoToAsync(dataUrl);
 
-            const string headerStyle = "" + "\"" + "font-family:'Sarabun'; " + "font-size:11px; " + "width: 100%;" +
-                                       "padding-right: 55px;" + "padding-left: 55px;" + "margin-right: auto;" +
-                                       "margin-left: auto;" + "margin-top: 10px;" + "\"";
+            const string headerStyle = "\"" + 
+                                           "font-family:'Sarabun';" + 
+                                           "font-size:11px; " + 
+                                           "width: 100%;" +
+                                           "padding-right: 55px;" + 
+                                           "padding-left: 55px;" + 
+                                           "margin-right: auto;" +
+                                           "margin-left: auto;" + 
+                                           "margin-top: 10px;" + 
+                                       "\"";
 
-            const string footerStyle = "\"" + "font-family:'Sarabun';" + "text-align: right;" + "font-size: 11px;" +
-                                       "width: 100%;" + "padding-right: 55px;" + "padding-left: 55px;" +
-                                       "margin-right: auto;" + "margin-left: auto;" + "margin-bottom: 10px;" + "\"";
+            const string footerStyle = "\"" + 
+                                           "font-family:'Sarabun';" + 
+                                           "text-align: right;" + 
+                                           "font-size: 11px;" +
+                                           "width: 100%;" + 
+                                           "padding-right: 55px;" + 
+                                           "padding-left: 55px;" +
+                                           "margin-right: auto;" + 
+                                           "margin-left: auto;" + 
+                                           "margin-bottom: 10px;" + 
+                                       "\"";
 
             var output = await page.PdfDataAsync(new PdfOptions
             {
