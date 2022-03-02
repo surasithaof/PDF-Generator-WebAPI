@@ -65,10 +65,10 @@ public class PdfGeneratorController : Controller
             {
                 new GreetingModel("French", "Bonjour", "Salut"),
                 new GreetingModel("Spanish", "Hola", "¿Qué tal? (What’s up?)"),
-                new GreetingModel("Italian", "Salve", "Ciao"),
+                new GreetingModel("Italian", "Buongiorno", "Ciao"),
                 new GreetingModel("Chinese", "你好!", null),
                 new GreetingModel("Bulgarian", "Здравей!", "Здравейте!"),
-                new GreetingModel("Japanese:", "こんにちは!", "おーい!"),
+                new GreetingModel("Japanese", "こんにちは!", "おーい!"),
                 new GreetingModel("Hebrew", "!שלום", null),
                 new GreetingModel("Hindi", "नमस्ते", null),
                 new GreetingModel("Korean", "안영하세요", null),
