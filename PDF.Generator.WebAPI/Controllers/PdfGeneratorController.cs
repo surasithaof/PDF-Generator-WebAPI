@@ -48,7 +48,7 @@ public class PdfGeneratorController : Controller
             {
                 statusCode = HttpStatusCode.NotImplemented,
                 success = false,
-                message = "Pdf Generator has error please try again later.",
+                message = "the server has an error, please try again later.",
             };
             return Ok(result);
         }
@@ -97,9 +97,9 @@ public class PdfGeneratorController : Controller
         {
             var result = new
             {
-                statusCode = HttpStatusCode.NotImplemented,
+                statusCode = HttpStatusCode.InternalServerError,
                 success = false,
-                message = "Pdf Generator has error please try again later.",
+                message = "the server has an error, please try again later.",
             };
             return Ok(result);
         }
@@ -137,9 +137,9 @@ public class PdfGeneratorController : Controller
         {
             var result = new
             {
-                statusCode = HttpStatusCode.NotImplemented,
+                statusCode = HttpStatusCode.InternalServerError,
                 success = false,
-                message = "Pdf Generator has error please try again later.",
+                message = "the server has an error, please try again later.",
             };
             return Ok(result);
         }
