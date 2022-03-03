@@ -23,7 +23,7 @@ public class PdfGeneratorController : Controller
         try
         {
             string templatePath = _configuration.GetValue<string>("ReportTemplatePath");
-            string templateFullPath = Path.Combine(templatePath, req.TemplateName);
+            string templateFullPath = Path.Combine(Environment.CurrentDirectory, templatePath, req.TemplateName);
             byte[] pdfResult = await _pdfGeneratorService.GeneratePdf(templateFullPath: templateFullPath,
                 templateData: req.TemplateDataObject, headerText: req.HeaderText,
                 hasPageNumber: req.HasPageNumber ?? true);
@@ -34,7 +34,7 @@ public class PdfGeneratorController : Controller
                 string outputPath = _configuration.GetValue<string>("ReportOutputPath");
                 if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
                 string outputFileName = !String.IsNullOrEmpty(req.OutputFileName) ? req.OutputFileName : "output.pdf";
-                string outputFullPath = Path.Combine(outputPath, outputFileName);
+                string outputFullPath = Path.Combine(Environment.CurrentDirectory, outputPath, outputFileName);
 
                 await System.IO.File.WriteAllBytesAsync(outputFullPath, pdfResult);
             }
@@ -78,15 +78,15 @@ public class PdfGeneratorController : Controller
             var templateDataObject = new {Greetings = greetings};
 
             string templatePath = _configuration.GetValue<string>("ReportTemplatePath");
-            string templateFullPath = Path.Combine(templatePath, templateName);
+            string templateFullPath = Path.Combine(Environment.CurrentDirectory, templatePath, templateName);
             byte[] pdfResult = await _pdfGeneratorService.GeneratePdf(templateFullPath: templateFullPath,
                 templateData: templateDataObject);
 
             // Save the pdf to the disk
             string outputPath = _configuration.GetValue<string>("ReportOutputPath");
-            if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
+            if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, outputPath))) Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, outputPath));
             string outputFileName = "test_output.pdf";
-            string outputFullPath = Path.Combine(outputPath, outputFileName);
+            string outputFullPath = Path.Combine(Environment.CurrentDirectory, outputPath, outputFileName);
 
             await System.IO.File.WriteAllBytesAsync(outputFullPath, pdfResult);
 
@@ -126,7 +126,7 @@ public class PdfGeneratorController : Controller
                 string outputPath = _configuration.GetValue<string>("ReportOutputPath");
                 if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
                 string outputFileName = !String.IsNullOrEmpty(req.OutputFileName) ? req.OutputFileName : "output.pdf";
-                string outputFullPath = Path.Combine(outputPath, outputFileName);
+                string outputFullPath = Path.Combine(Environment.CurrentDirectory, outputPath, outputFileName);
 
                 await System.IO.File.WriteAllBytesAsync(outputFullPath, pdfResult);
             }
