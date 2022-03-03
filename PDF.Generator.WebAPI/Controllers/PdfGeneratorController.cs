@@ -91,7 +91,8 @@ public class PdfGeneratorController : Controller
             await System.IO.File.WriteAllBytesAsync(outputFullPath, pdfResult);
 
             var result = new {statusCode = HttpStatusCode.OK, success = true, message = "Success", data = pdfResult};
-            return Ok(result);
+            // return Ok(result);
+            return File(pdfResult, "application/pdf", outputFileName);
         }
         catch (Exception ex)
         {
