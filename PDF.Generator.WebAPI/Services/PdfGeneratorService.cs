@@ -14,7 +14,7 @@ public class PdfGeneratorService : IPdfGeneratorService
     {
     }
 
-    public async Task<byte[]> GeneratePdf(string templateFullPath, object templateData, string headerText = null,
+    public async Task<byte[]> GeneratePdf(string templateFullPath, object templateData, string? headerText = null,
         bool hasPageNumber = true)
     {
         try
@@ -27,39 +27,47 @@ public class PdfGeneratorService : IPdfGeneratorService
 
             //Generate PDF using Puppeteer
             var browserFetcher = new BrowserFetcher();
-            await browserFetcher.DownloadAsync(BrowserFetcher.DefaultRevision);
-            await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions {Headless = true});
+            await browserFetcher.DownloadAsync();
+            await using var browser = await Puppeteer.LaunchAsync(
+                new LaunchOptions
+                {
+                    Headless = true,
+                    Args = new[] {
+                        "--no-sandbox"
+                    }
+                });
+
             await using var page = await browser.NewPageAsync();
             await page.GoToAsync(dataUrl);
 
-            const string headerStyle = "\"" + 
-                                           "font-family:'Sarabun';" + 
-                                           "font-size:11px; " + 
+            const string headerStyle = "\"" +
+                                           "font-family:'Sarabun';" +
+                                           "font-size:11px; " +
                                            "width: 100%;" +
-                                           "padding-right: 55px;" + 
-                                           "padding-left: 55px;" + 
+                                           "padding-right: 55px;" +
+                                           "padding-left: 55px;" +
                                            "margin-right: auto;" +
-                                           "margin-left: auto;" + 
-                                           "margin-top: 10px;" + 
+                                           "margin-left: auto;" +
+                                           "margin-top: 10px;" +
                                        "\"";
 
-            const string footerStyle = "\"" + 
-                                           "font-family:'Sarabun';" + 
-                                           "text-align: right;" + 
+            const string footerStyle = "\"" +
+                                           "font-family:'Sarabun';" +
+                                           "text-align: right;" +
                                            "font-size: 11px;" +
-                                           "width: 100%;" + 
-                                           "padding-right: 55px;" + 
+                                           "width: 100%;" +
+                                           "padding-right: 55px;" +
                                            "padding-left: 55px;" +
-                                           "margin-right: auto;" + 
-                                           "margin-left: auto;" + 
-                                           "margin-bottom: 10px;" + 
+                                           "margin-right: auto;" +
+                                           "margin-left: auto;" +
+                                           "margin-bottom: 10px;" +
                                        "\"";
 
             var output = await page.PdfDataAsync(new PdfOptions
             {
                 Format = PaperFormat.A4,
                 DisplayHeaderFooter = true,
-                MarginOptions = new MarginOptions {Top = "80px", Right = "20px", Bottom = "80px", Left = "20px"},
+                MarginOptions = new MarginOptions { Top = "80px", Right = "20px", Bottom = "80px", Left = "20px" },
                 PreferCSSPageSize = true,
                 HeaderTemplate = "<div id=\"header-template\" style=" + headerStyle + ">" + headerText + "</div>",
                 FooterTemplate =
