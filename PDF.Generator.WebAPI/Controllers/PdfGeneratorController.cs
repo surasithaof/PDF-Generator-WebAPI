@@ -6,7 +6,7 @@ using PDF.Generator.WebAPI.Services.Interfaces;
 
 namespace PDF.Generator.WebAPI.Controllers;
 
-[Route("pdf-gen")]
+[Route("pdfs")]
 [Produces(MediaTypeNames.Application.Json)]
 public class PdfGeneratorController : Controller
 {
@@ -24,7 +24,7 @@ public class PdfGeneratorController : Controller
         _pdfGeneratorService = pdfGeneratorService;
     }
 
-    [HttpPost("gen-from-template")]
+    [HttpPost("generate-from-template")]
     public async Task<IActionResult> GeneratePDF([FromBody] GeneratePdfReq req)
     {
         try

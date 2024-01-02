@@ -110,4 +110,33 @@ public class PdfGeneratorServiceTest
             await File.WriteAllBytesAsync(outputFullPath, pdfResult);
         });
     }
+
+    [Test]
+    public void TestMergePdfs()
+    {
+        string outputPath = _configuration.GetValue<string>("ReportOutputPath") ?? "../output";
+        var files = Directory.GetFiles(outputPath);
+        List<byte[]> documents = new List<byte[]>();
+        foreach (string file in files)
+        {
+            documents.Add(File.ReadAllBytes(file));
+        }
+
+        byte[] pdfResult = Array.Empty<byte>();
+        byte[] mergedResult = _pdfGeneratorService.ConcatenatePdfs(documents);
+        pdfResult = mergedResult;
+
+        byte[] stampPageNumberResult = _pdfGeneratorService.StampMergedPdfNumber(mergedResult);
+        pdfResult = stampPageNumberResult;
+
+        // Save the pdf to the disk
+        if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, outputPath))) Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, outputPath));
+        string outputFileName = $"test_merge_output_{DateTime.Now.ToString("yyyyMMdd_hhmmss")}.pdf";
+        string outputFullPath = Path.Combine(Environment.CurrentDirectory, outputPath, outputFileName);
+
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            await File.WriteAllBytesAsync(outputFullPath, pdfResult);
+        });
+    }
 }
