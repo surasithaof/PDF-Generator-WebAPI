@@ -10,11 +10,13 @@ namespace PDF.Generator.WebAPI.Services;
 
 public class PdfGeneratorService : IPdfGeneratorService
 {
-    public PdfGeneratorService()
+    private readonly ILogger<PdfGeneratorService> _logger;
+    public PdfGeneratorService(ILogger<PdfGeneratorService> logger)
     {
+        _logger = logger;
     }
 
-    public async Task<byte[]> GeneratePdf(string templateFullPath, object templateData, string? headerText = null,
+    public async Task<byte[]> GeneratePdfFromTemplate(string templateFullPath, object templateData, string? headerText = null,
         bool hasPageNumber = true)
     {
         try
@@ -81,7 +83,7 @@ public class PdfGeneratorService : IPdfGeneratorService
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message, ex);
+            _logger.LogError("Generate PDF from template error: {ex}", ex);
             throw;
         }
     }
@@ -118,7 +120,7 @@ public class PdfGeneratorService : IPdfGeneratorService
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message, ex);
+            _logger.LogError("Concatenate PDFs error: {ex}", ex);
             throw;
         }
     }
@@ -158,7 +160,54 @@ public class PdfGeneratorService : IPdfGeneratorService
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message, ex);
+            _logger.LogError("Stamp merged PDFs error: {ex}", ex);
+            throw;
+        }
+    }
+
+    public async Task<byte[]> GeneratePdfFromSvgContent(string svgContent)
+    {
+        try
+        {
+            byte[] pdfResult = Array.Empty<byte>();
+
+            var encoding = new UnicodeEncoding();
+            var svgUrl = "data:image/svg+xml;base64," + Convert.ToBase64String(encoding.GetBytes(svgContent));
+
+            var browserFetcher = new BrowserFetcher();
+            await browserFetcher.DownloadAsync();
+            await using var browser = await Puppeteer.LaunchAsync(
+                new LaunchOptions
+                {
+                    Headless = true,
+                    Args = new[] {
+                        "--no-sandbox"
+                    }
+                });
+
+            await using var page = await browser.NewPageAsync();
+            await page.GoToAsync(svgUrl);
+            pdfResult = await page.PdfDataAsync(new PdfOptions
+            {
+                Format = PaperFormat.A4,
+                Landscape = true,
+                DisplayHeaderFooter = false,
+                MarginOptions = new MarginOptions
+                {
+                    Top = "0px",
+                    Right = "0px",
+                    Bottom = "0px",
+                    Left = "0px"
+                },
+                PreferCSSPageSize = true,
+                PrintBackground = true
+            });
+
+            return pdfResult;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Generate PDF from SVG content error: {ex}", ex);
             throw;
         }
     }

@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDF.Generator.WebAPI", "PDF.Generator.WebAPI\PDF.Generator.WebAPI.csproj", "{5355375E-46FE-403F-968D-9306BE94EA52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDF.Generator.Test", "PDF.Generator.Test\PDF.Generator.Test.csproj", "{89974430-9E1A-49E3-81A8-0D57C0210D46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +15,9 @@ Global
 		{5355375E-46FE-403F-968D-9306BE94EA52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5355375E-46FE-403F-968D-9306BE94EA52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5355375E-46FE-403F-968D-9306BE94EA52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89974430-9E1A-49E3-81A8-0D57C0210D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89974430-9E1A-49E3-81A8-0D57C0210D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89974430-9E1A-49E3-81A8-0D57C0210D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89974430-9E1A-49E3-81A8-0D57C0210D46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

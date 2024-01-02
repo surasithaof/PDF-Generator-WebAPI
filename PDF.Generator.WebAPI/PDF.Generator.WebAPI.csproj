@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Models/PdfGenerators/" />
       <Folder Include="Templates" />
     </ItemGroup>
 
