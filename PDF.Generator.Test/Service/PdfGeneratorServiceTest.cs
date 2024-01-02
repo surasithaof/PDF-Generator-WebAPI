@@ -17,13 +17,13 @@ public class PdfGeneratorServiceTest
     {
         _pdfGeneratorService = new PdfGeneratorService(NullLogger<PdfGeneratorService>.Instance);
 
-        var inMemorySettings = new Dictionary<string, string> {
-            {"ReportTemplatePath", "/Users/surasith.kae/Projects/PDF-Generator-WebAPI/templates"},
-            {"ReportOutputPath", "/Users/surasith.kae/Projects/PDF-Generator-WebAPI/output"}
+        var inMemorySettings = new List<KeyValuePair<string, string?>> {
+            new KeyValuePair<string, string?>("ReportTemplatePath", "/Users/surasith.kae/Projects/PDF-Generator-WebAPI/templates"),
+            new KeyValuePair<string, string?>("ReportOutputPath", "/Users/surasith.kae/Projects/PDF-Generator-WebAPI/output")
         };
 
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(initialData: inMemorySettings)
+            .AddInMemoryCollection(inMemorySettings)
             .Build();
     }
 
