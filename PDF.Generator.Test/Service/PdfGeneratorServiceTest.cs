@@ -123,11 +123,8 @@ public class PdfGeneratorServiceTest
         }
 
         byte[] pdfResult = Array.Empty<byte>();
-        byte[] mergedResult = _pdfGeneratorService.ConcatenatePdfs(documents);
+        byte[] mergedResult = _pdfGeneratorService.ConcatenatePdfs(documents, true);
         pdfResult = mergedResult;
-
-        byte[] stampPageNumberResult = _pdfGeneratorService.StampMergedPdfNumber(mergedResult);
-        pdfResult = stampPageNumberResult;
 
         // Save the pdf to the disk
         if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, outputPath))) Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, outputPath));

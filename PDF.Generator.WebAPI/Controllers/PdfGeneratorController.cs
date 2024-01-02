@@ -69,13 +69,8 @@ public class PdfGeneratorController : Controller
         try
         {
             byte[] pdfResult = Array.Empty<byte>();
-            byte[] mergedResult = _pdfGeneratorService.ConcatenatePdfs(req.Documents);
+            byte[] mergedResult = _pdfGeneratorService.ConcatenatePdfs(req.Documents, req.HasPageNumber == true);
             pdfResult = mergedResult;
-            if (req.HasPageNumber == true)
-            {
-                byte[] stampPageNumberResult = _pdfGeneratorService.StampMergedPdfNumber(mergedResult);
-                pdfResult = stampPageNumberResult;
-            }
 
             // Save the pdf to the disk
             if (req.SaveAsFile == true)

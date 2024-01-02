@@ -88,10 +88,11 @@ public class PdfGeneratorService : IPdfGeneratorService
         }
     }
 
-    public byte[] ConcatenatePdfs(IEnumerable<byte[]> documents)
+    public byte[] ConcatenatePdfs(IEnumerable<byte[]> documents, bool withPageNumber)
     {
         try
         {
+            byte[] result = Array.Empty<byte>();
             using (var ms = new MemoryStream())
             {
                 var outputDocument = new Document();
@@ -112,11 +113,16 @@ public class PdfGeneratorService : IPdfGeneratorService
 
                 writer.Close();
                 outputDocument.Close();
-                var allPagesContent = ms.GetBuffer();
+                result = ms.GetBuffer();
                 ms.Flush();
-
-                return allPagesContent;
             }
+
+            if (withPageNumber)
+            {
+                result = StampMergedPdfNumber(result);
+            }
+
+            return result;
         }
         catch (Exception ex)
         {
@@ -125,7 +131,7 @@ public class PdfGeneratorService : IPdfGeneratorService
         }
     }
 
-    public byte[] StampMergedPdfNumber(byte[] document)
+    private byte[] StampMergedPdfNumber(byte[] document)
     {
         try
         {
